@@ -183,7 +183,7 @@ const addNewEvent = async (e) => {
   const obj = {
     name: e.target[0].value,
     description: e.target[1].value,
-    date: e.target[2].value,
+    date: "2021-09-15T00:00:00.000Z",
     location: e.target[3].value,
 
   };
@@ -191,7 +191,7 @@ const addNewEvent = async (e) => {
   console.log(obj);
   try {
     const response = await fetch(
-      "https://fsa-crud-2aa9294fe819.herokuapp.com/api/2505-ftb-ct-web-pt/events",
+      (API + "/events"),
       {
         method: "POST",
         headers: {
