@@ -102,8 +102,14 @@ function SelectedParty() {
     <address>${selectedParty.location}</address>
     <p>${selectedParty.description}</p>
     <GuestList></GuestList>
+    <button id="deleteButton">Delete Event</button>
   `;
   $party.querySelector("GuestList").replaceWith(GuestList());
+
+  const $deleteButton = $party.querySelector("#deleteButton");
+  $deleteButton.addEventListener("click", ()=>{
+    if(confirm("Confirm Delete?")){deleteEvent(selectedParty.id)}
+  });
 
   return $party;
 }
@@ -137,26 +143,26 @@ const form = () => {
   $form.innerHTML = `
   <form>
   <div class="form-group">
-    <label for = "event name">Event Name</label>
+    <label for = "eventName">Event Name</label>
     <input class="form-control" id="newEventName" placeholder="Name">
  <div>
    <div class="form-group">
-    <label for="exampleInputEmail1">Description</label>
+    <label for="Description">Description</label>
     <input class="form-control" id="newEventDescription" placeholder="Description">
   </div>
    <div class="form-group">
-    <label for="exampleInputEmail1">Date</label>
+    <label for="Date">Date</label>
     <input type="date" class="form-control" id="newEventDate" placeholder="Date">
   </div>
    <div class="form-group">
-    <label for="exampleInputEmail1">Location</label>
+    <label for="Location">Location</label>
     <input class="form-control" id="newEventLocation" placeholder="Location">
   </div>
   <button type="submit" class="btn btn-primary">Create Event</button>
 </form>
   `
 
-  $form.addEventListener("submit", (e)=>{
+  $form.addEventListener("submit", (e) => {
     e.preventDefault();
     const dateInput = document.querySelector("#newEventDate").value
     
@@ -211,6 +217,21 @@ const addNewEvent = async (e) => {
 };
 
 
+const deleteEvent = async(id) => {
+  const response = await fetch(`${API}/events/${id}`, {
+    method: "DELETE", 
+    headers:{
+      "content-type": "application/json",
+  accept: "application/json"
+  }
+  }).then(resp=>resp.json())
+  .then(()=>{
+    $party.innerHTML = "";
+    const home = $party.querySelector(`[data-id='${id}']`);
+  home.remove();
+  })
+
+}
 
 // === Render ===
 function render() {
