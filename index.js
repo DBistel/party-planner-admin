@@ -183,7 +183,8 @@ const addNewEvent = async (e) => {
   const obj = {
     name: e.target[0].value,
     description: e.target[1].value,
-    date: "2021-09-15T00:00:00.000Z",
+    date: new Date(e.target[2].value).toISOString(),
+    // date: "2021-09-15T00:00:00.000Z", //hard code to show this date.
     location: e.target[3].value,
 
   };
