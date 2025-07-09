@@ -137,7 +137,7 @@ const form = () => {
   $form.innerHTML = `
   <form>
   <div class="form-group">
-    <label for="exampleInputEmail1">Event Name</label>
+    <label for = "event name">Event Name</label>
     <input class="form-control" id="newEventName" placeholder="Name">
  <div>
    <div class="form-group">
@@ -170,6 +170,45 @@ const form = () => {
   return $form
 }
 
+const addNewEvent = async (e) => {
+  e.preventDefault();
+  console.log(e);
+  console.log(e.target);
+  console.log(e.target[0]);
+  console.log(e.target[0].value);
+  console.log(e.target[1].value);
+  console.log(e.target[2].value);
+  console.log(e.target[3].value);
+
+  const obj = {
+    name: e.target[0].value,
+    description: e.target[1].value,
+    date: e.target[2].value,
+    location: e.target[3].value,
+
+  };
+
+  console.log(obj);
+  try {
+    const response = await fetch(
+      "https://fsa-crud-2aa9294fe819.herokuapp.com/api/2505-ftb-ct-web-pt/events",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      }
+    );
+
+    console.log(response);
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
 
 // === Render ===
@@ -191,6 +230,7 @@ function render() {
 
   $app.querySelector("PartyList").replaceWith(PartyList());
   $app.querySelector("SelectedParty").replaceWith(SelectedParty());
+  $app.addEventListener("submit", addNewEvent);
   $app.append(form());
 }
 
