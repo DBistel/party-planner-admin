@@ -128,6 +128,33 @@ function GuestList() {
   return $ul;
 }
 
+
+const form = () => {
+  const $form = document.createElement("form");
+  $form.style.width = "50%";
+  $form.style.margin = "0 auto";
+
+  $form.innerHTML = `
+  <form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  `
+  return $form
+}
+
 // === Render ===
 function render() {
   const $app = document.querySelector("#app");
@@ -147,6 +174,7 @@ function render() {
 
   $app.querySelector("PartyList").replaceWith(PartyList());
   $app.querySelector("SelectedParty").replaceWith(SelectedParty());
+  $app.append(form());
 }
 
 async function init() {
